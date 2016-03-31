@@ -329,6 +329,23 @@ uis.controller('uiSelectCtrl',
     return isDisabled;
   };
 
+  // Whether this item is selected, initially helpful for multiple select with
+  // remove-selected set to false (hence lead to click-to-toggle)
+  ctrl.isSelected = function(itemScope) {
+    return ctrl.isItemSelected(itemScope[ctrl.itemProperty]);
+  };
+
+  ctrl.isItemSelected = function(item) {
+    if (item === undefined) {
+      return false;
+    }
+
+    if (angular.isArray(ctrl.selected)) {
+      return ctrl.selected.indexOf(item) > -1;
+    }
+
+    return ctrl.selected === item;
+  };
 
   // When the user selects an item with ENTER or clicks the dropdown
   ctrl.select = function(item, skipFocusser, $event) {

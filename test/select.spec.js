@@ -1,5 +1,7 @@
 'use strict';
 
+// TODO missing tests for remove-selected, isSelected, isItemSelected
+
 describe('ui-select tests', function() {
   var scope, $rootScope, $compile, $timeout, $injector, uisRepeatParser;
 

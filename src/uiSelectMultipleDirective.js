@@ -15,6 +15,17 @@ uis.directive('uiSelectMultiple', ['uiSelectMinErr','$timeout', function(uiSelec
       //Wait for link fn to inject it
       $scope.$evalAsync(function(){ ngModel = $scope.ngModel; });
 
+      // Override $select.select to support click-to-toggle
+      // XXX should be supported by the uiSelectController instead?
+      var originalSelectFn = $select.select;
+      $select.select = function(item, skipFocusser, $event) {
+        if ($event && $event.type === 'click' && $select.isItemSelected(item)) {
+          return ctrl.removeChoice($select.selected.indexOf(item));
+        }
+
+        return originalSelectFn.apply($select, arguments);
+      };
+
       ctrl.activeMatchIndex = -1;
 
       ctrl.updateModel = function(){
@@ -176,7 +187,7 @@ uis.directive('uiSelectMultiple', ['uiSelectMinErr','$timeout', function(uiSelec
         }
 
         // Do not push one element twice
-        if ($select.selected.indexOf(item) > -1) {
+        if ($select.isItemSelected(item)) {
           return;
         }
 

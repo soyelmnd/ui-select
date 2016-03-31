@@ -44,8 +44,10 @@ uis.directive('uiSelectChoices',
           throw uiSelectMinErr('rows', "Expected 1 .ui-select-choices-row but got '{0}'.", choices.length);
         }
 
-        choices.attr('ng-repeat', $select.parserResult.repeatExpression(groupByExp))
-            .attr('ng-if', '$select.open'); //Prevent unnecessary watches when dropdown is closed
+        choices
+          .attr('ng-repeat', $select.parserResult.repeatExpression(groupByExp))
+          .attr('ng-if', '$select.open'); //Prevent unnecessary watches when dropdown is closed
+
         if ($window.document.addEventListener) {  //crude way to exclude IE8, specifically, which also cannot capture events
           choices.attr('ng-click', '$select.select(' + $select.parserResult.itemName + ',$select.skipFocusser,$event)');
         }

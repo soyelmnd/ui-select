@@ -61,7 +61,7 @@ uis.directive('uiSelect',
         $select.onRemoveCallback = $parse(attrs.onRemove);
 
         // Configurable removeSelected, to override the predefined settings
-        if (attrs.removeSelected !== undefined) {
+        if (attrs.removeSelected) {
           $select.removeSelected = scope.$eval(attrs.removeSelected);
         }
 
