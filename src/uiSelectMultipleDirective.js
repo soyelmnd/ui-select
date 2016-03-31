@@ -76,7 +76,11 @@ uis.directive('uiSelectMultiple', ['uiSelectMinErr','$timeout', function(uiSelec
       //$select.selected = raw selected objects (ignoring any property binding)
 
       $select.multiple = true;
-      $select.removeSelected = true;
+
+      // removeSelected should be parsed from attrs, see uiSelectDirective
+      if ($select.removeSelected === undefined) {
+        $select.removeSelected = true;
+      }
 
       //Input that will handle focus
       $select.focusInput = $select.searchInput;
@@ -170,6 +174,12 @@ uis.directive('uiSelectMultiple', ['uiSelectMinErr','$timeout', function(uiSelec
         if($select.selected.length >= $select.limit) {
           return;
         }
+
+        // Do not push one element twice
+        if ($select.selected.indexOf(item) > -1) {
+          return;
+        }
+
         $select.selected.push(item);
         $selectMultiple.updateModel();
       });

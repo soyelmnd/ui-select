@@ -60,6 +60,11 @@ uis.directive('uiSelect',
         $select.onSelectCallback = $parse(attrs.onSelect);
         $select.onRemoveCallback = $parse(attrs.onRemove);
 
+        // Configurable removeSelected, to override the predefined settings
+        if (attrs.removeSelected !== undefined) {
+          $select.removeSelected = scope.$eval(attrs.removeSelected);
+        }
+
         //Limit the number of selections allowed
         $select.limit = (angular.isDefined(attrs.limit)) ? parseInt(attrs.limit, 10) : undefined;
 

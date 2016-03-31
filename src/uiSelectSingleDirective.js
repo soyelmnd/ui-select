@@ -7,6 +7,11 @@ uis.directive('uiSelectSingle', ['$timeout','$compile', function($timeout, $comp
       var $select = ctrls[0];
       var ngModel = ctrls[1];
 
+      // removeSelected should be parsed from attrs, see uiSelectDirective
+      if ($select.removeSelected === undefined) {
+        $select.removeSelected = false;
+      }
+
       //From view --> model
       ngModel.$parsers.unshift(function (inputValue) {
         var locals = {},
